@@ -4,7 +4,7 @@
         {
             "name": "test",
             "action": "firefox github.com",
-            "shortcut": ["ctrl", "v"]
+            "shortcut": ["ctrl", "o"]
         }
     ],
     "version": "0.0.1"
