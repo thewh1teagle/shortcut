@@ -1,0 +1,11 @@
+{
+    "$schema": "schema.json",
+    "shortcuts": [
+        {
+            "name": "test",
+            "action": "firefox github.com",
+            "shortcut": ["ctrl", "v"]
+        }
+    ],
+    "version": "0.0.1"
+}
