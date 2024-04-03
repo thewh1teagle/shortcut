@@ -12,8 +12,8 @@ Download one of the releases in [shortcut/releases](https://github.com/thewh1tea
 
 # Usage
 
-Put `shortcut` in known path such as `C:\bin`.
-create JSON file alongside `shortcut` named `shortcut.config.json` with the following:
+1. Put `shortcut` in known path such as `C:\bin`.
+2. create JSON file alongside `shortcut` named `shortcut.config.json` with the following:
 ```json
 {
   "version": "0.0.1",
@@ -22,6 +22,7 @@ create JSON file alongside `shortcut` named `shortcut.config.json` with the foll
   ]
 }
 ```
+3. Run it once. it will autostart on boot from then.
 
 
 # Supported Platforms
