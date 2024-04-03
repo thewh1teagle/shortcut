@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -15,13 +16,10 @@ import (
 //go:embed schema.json
 var jsonSchema string
 
-//go:embed shortcuts.json
-var jsonConfig string
-
 type Shortcut struct {
-	Name     string
-	Shortcut []string
-	Action   string
+	Name    string
+	Keys    []string
+	Command string
 }
 
 func main() {
@@ -40,9 +38,9 @@ func main() {
 func registerShortcuts(shortcuts []Shortcut) {
 	for _, shortcut := range shortcuts {
 		fmt.Printf("Register shortcut %v\n", shortcut)
-		hook.Register(hook.KeyDown, shortcut.Shortcut, func(e hook.Event) {
+		hook.Register(hook.KeyDown, shortcut.Keys, func(e hook.Event) {
 			fmt.Printf("Shortcut <%s> activated\n", shortcut.Name)
-			command := strings.Split(shortcut.Action, " ")
+			command := strings.Split(shortcut.Command, " ")
 			if len(command) == 1 {
 				cmd := exec.Command(command[0])
 				go cmd.Run()
@@ -55,6 +53,12 @@ func registerShortcuts(shortcuts []Shortcut) {
 }
 
 func parseShrotcuts() ([]Shortcut, error) {
+	jsonConfig, err := os.ReadFile("shortcut.conf.json")
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return nil, err
+	}
+
 	schemaLoader := gojsonschema.NewBytesLoader([]byte(jsonSchema))
 	documentLoader := gojsonschema.NewBytesLoader([]byte(jsonConfig))
 

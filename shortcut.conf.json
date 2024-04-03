@@ -3,9 +3,15 @@
     "shortcuts": [
         {
             "name": "test",
-            "action": "firefox github.com",
-            "shortcut": ["ctrl", "o"]
+            "command": "/usr/bin/open http://github.com",
+            "keys": ["ctrl", "o"]
         }
     ],
     "version": "0.0.1"
 }
+
+
+
+
+
+
