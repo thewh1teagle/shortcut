@@ -16,7 +16,7 @@ Put `shortcut` in known path such as `C:\bin`.
 create JSON file alongside `shortcut` named `shortcut.config.json` with the following:
 ```json
 {
-  "version: "0.0.1",
+  "version": "0.0.1",
   "shortcuts": [
     {"name" "test", action: "echo hi", "keys": ["ctrl", "d"]}
   ]
