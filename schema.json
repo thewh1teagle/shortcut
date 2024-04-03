@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "version": {
+        "type": "string",
+        "description": "The version of the shortcut program."
+      },
+      "shortcuts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Optional. The name or description of the shortcut."
+            },
+            "shortcut": {
+              "type": "string",
+              "description": "The keyboard shortcut combination."
+            },
+            "action": {
+              "type": "string",
+              "description": "The action to be performed when the shortcut is triggered."
+            }
+          },
+          "required": ["shortcut", "action"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": ["version", "shortcuts"],
+    "additionalProperties": false
+  }
+  
