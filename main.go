@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	hook "github.com/robotn/gohook"
@@ -53,7 +54,15 @@ func registerShortcuts(shortcuts []Shortcut) {
 }
 
 func parseShrotcuts() ([]Shortcut, error) {
-	jsonConfig, err := os.ReadFile("shortcut.conf.json")
+	exePath, err := os.Executable()
+	if err != nil {
+		fmt.Println("Error getting executable path:", err)
+		return nil, err
+	}
+
+	// Construct the relative file path
+	configPath := filepath.Join(filepath.Dir(exePath), "shortcut.conf.json")
+	jsonConfig, err := os.ReadFile(configPath)
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		return nil, err
