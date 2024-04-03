@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -11,13 +12,16 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
-const configPath = "shortcuts.json"
-const jsonSchemaPath = "schema.json"
+//go:embed schema.json
+var jsonSchema string
+
+//go:embed shortcuts.json
+var jsonConfig string
 
 type Shortcut struct {
-	Name      string
-	Shortcuts []string
-	Action    string
+	Name     string
+	Shortcut []string
+	Action   string
 }
 
 func main() {
@@ -35,31 +39,26 @@ func main() {
 
 func registerShortcuts(shortcuts []Shortcut) {
 	for _, shortcut := range shortcuts {
-		hook.Register(hook.KeyDown, shortcut.Shortcuts, func(e hook.Event) {
-			fmt.Printf("Shortcut <%s> activated", shortcut.Name)
+		fmt.Printf("Register shortcut %v\n", shortcut)
+		hook.Register(hook.KeyDown, shortcut.Shortcut, func(e hook.Event) {
+			fmt.Printf("Shortcut <%s> activated\n", shortcut.Name)
 			command := strings.Split(shortcut.Action, " ")
 			if len(command) == 1 {
-				exec.Command(command[0])
+				cmd := exec.Command(command[0])
+				go cmd.Run()
 			} else {
-				exec.Command(command[0], command[1:]...)
+				cmd := exec.Command(command[0], command[1:]...)
+				go cmd.Run()
 			}
 		})
 	}
 }
 
 func parseShrotcuts() ([]Shortcut, error) {
-	// Load the JSON schema
-	schemaLoader := gojsonschema.NewStringLoader(jsonSchemaPath)
-	schema, err := gojsonschema.NewSchema(schemaLoader)
-	if err != nil {
-		return nil, err
-	}
+	schemaLoader := gojsonschema.NewBytesLoader([]byte(jsonSchema))
+	documentLoader := gojsonschema.NewBytesLoader([]byte(jsonConfig))
 
-	// Load the JSON data
-	documentLoader := gojsonschema.NewStringLoader(configPath)
-
-	// Validate the JSON data against the schema
-	result, err := schema.Validate(documentLoader)
+	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +73,8 @@ func parseShrotcuts() ([]Shortcut, error) {
 		Version   string     `json:"version"`
 		Shortcuts []Shortcut `json:"shortcuts"`
 	}
-	err = json.Unmarshal([]byte(jsonStr), &data)
+
+	err = json.Unmarshal([]byte(jsonConfig), &data)
 	if err != nil {
 		return nil, err
 	}
