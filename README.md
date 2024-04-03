@@ -8,7 +8,7 @@ Shortcut is a command-line tool that lets users create global keyboard shortcuts
 
 # Downloads
 
-Download one of the releases in [shortcut/releases](https://github.com/thewh1teagle/shortcuts)
+Download one of the releases in [shortcut/releases](https://github.com/thewh1teagle/shortcut/releases)
 
 # Usage
 
