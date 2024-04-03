@@ -18,7 +18,7 @@ create JSON file alongside `shortcut` named `shortcut.config.json` with the foll
 {
   "version": "0.0.1",
   "shortcuts": [
-    {"name" "test", action: "echo hi", "keys": ["ctrl", "d"]}
+    {"name" "test", "action": "echo hi", "keys": ["ctrl", "d"]}
   ]
 }
 ```
