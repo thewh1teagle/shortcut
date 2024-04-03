@@ -9,3 +9,7 @@ Shortcut is a command-line tool designed to simplify the creation of global keyb
 # Install
 
 Download one of the releases in [shortcut/releases](https://github.com/thewh1teagle/shortcuts)
+
+# Supported Platforms
+
+`Windows`, `Linux`, `macOS`
