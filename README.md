@@ -18,7 +18,7 @@ Download one of the releases in [shortcut/releases](https://github.com/thewh1tea
 {
   "version": "0.0.1",
   "shortcuts": [
-    {"name" "test", "action": "echo hi", "keys": ["ctrl", "d"]}
+    {"name" "test", "command": "echo hi", "keys": ["ctrl", "d"]}
   ]
 }
 ```
@@ -28,3 +28,9 @@ Download one of the releases in [shortcut/releases](https://github.com/thewh1tea
 # Supported Platforms
 
 `Windows`, `Linux`, `macOS`
+
+# Todo
+- [ ] Start on boot with [go-autostart](https://github.com/emersion/go-autostart)
+- [ ] Installer like [oranda](https://github.com/axodotdev/oranda)
+- [ ] Hot reload with [fsnotify](https://github.com/fsnotify/fsnotify)
+- [ ] Releases with [goReleaser](https://goreleaser.com/quick-start/)
