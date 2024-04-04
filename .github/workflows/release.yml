@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main  # adjust the branch if needed
+  workflow_dispatch:
+    
 
 jobs:
   build-and-release:
