@@ -5,6 +5,11 @@
             "name": "test",
             "command": "/usr/bin/open https://github.com/thewh1teagle/shortcut",
             "keys": ["ctrl", "o"]
+        },
+        {
+            "name": "test1",
+            "command": "/usr/bin/open -a Terminal",
+            "keys": ["1", "2", "3"]
         }
     ],
     "version": "0.0.1"

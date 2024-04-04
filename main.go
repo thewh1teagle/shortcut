@@ -131,21 +131,23 @@ func run(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 	jsonConfig, err := readConfig(*configPath)
+	go hotReload(*configPath)
 	if err != nil {
 		// Handle error
 		fmt.Println("Failed to read config:", err)
-		os.Exit(1)
 	}
-	go hotReload(*configPath)
+
 	shortcuts, err := parseShrotcuts(jsonConfig)
 	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(shortcuts)
-	registerShortcuts(shortcuts)
+		// Block main goroutine forever.
+		<-make(chan struct{})
+	} else {
+		fmt.Println(shortcuts)
+		registerShortcuts(shortcuts)
 
-	s := hook.Start()
-	<-hook.Process(s)
+		s := hook.Start()
+		<-hook.Process(s)
+	}
 }
 
 func install() error {
