@@ -34,14 +34,14 @@ fs.mkdirSync(path.join(ROOT, NAME));
 child_process.execSync("go build -tags release", { cwd: ROOT, shell: true });
 
 // Bundle
-fs.renameSync(path.join(ROOT, "shortcut"), path.join(ROOT, `${NAME}/shortcut`));
+fs.renameSync(path.join(ROOT, "shortcut"), path.join(ROOT, NAME, 'shortcut'));
 fs.copyFileSync(
   path.join(ROOT, "shortcut.conf.json"),
-  path.join(ROOT, `${NAME}/shortcut.conf.json`)
+  path.join(ROOT, NAME, `shortcut.conf.json`)
 );
 fs.copyFileSync(
   path.join(ROOT, "shortcut.schema.json"),
-  path.join(ROOT, `${NAME}/shortcut.schema.json`)
+  path.join(ROOT, NAME, 'shortcut.schema.json')
 );
 
 // Compress
