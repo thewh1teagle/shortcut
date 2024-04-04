@@ -34,6 +34,7 @@ fs.mkdirSync(path.join(ROOT, NAME));
 child_process.execSync("go build -tags release", { cwd: ROOT, shell: true });
 
 // Bundle
+console.log(fs.readdirSync(ROOT))
 fs.renameSync(path.join(ROOT, "shortcut"), path.join(ROOT, NAME, 'shortcut'));
 fs.copyFileSync(
   path.join(ROOT, "shortcut.conf.json"),
