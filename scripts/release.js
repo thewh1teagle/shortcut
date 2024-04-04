@@ -17,6 +17,7 @@ const OS = {
   darwin: "macos",
 }[process.platform];
 const ARCH = process.arch;
+const BIN = OS === "windows" ? 'shortcut.exe' : 'shortcut'
 const VERSION = fs
   .readFileSync(path.join(ROOT, "main.go"), "utf-8")
   .match(/version\s*=\s*"([^"]+)"/)[1];
@@ -34,8 +35,9 @@ fs.mkdirSync(path.join(ROOT, NAME));
 child_process.execSync("go build -tags release", { cwd: ROOT, shell: true });
 
 // Bundle
-console.log(fs.readdirSync(ROOT))
-fs.renameSync(path.join(ROOT, "shortcut"), path.join(ROOT, NAME, 'shortcut'));
+fs.renameSync(path.join(ROOT, BIN), path.join(ROOT, NAME, BIN));
+
+// Additional files
 fs.copyFileSync(
   path.join(ROOT, "shortcut.conf.json"),
   path.join(ROOT, NAME, `shortcut.conf.json`)
@@ -96,21 +98,7 @@ async function publish() {
     console.error(`Failed to create release ${VERSION}: ${e}`);
   }
 
-  // Create Release
-
-  // Delete previous asset if exists
-  // curl -L \
-  //   -H "Accept: application/vnd.github+json" \
-  //   -H "Authorization: Bearer <YOUR-TOKEN>" \
-  //   -H "X-GitHub-Api-Version: 2022-11-28" \
-  //   https://api.github.com/repos/OWNER/REPO/releases/RELEASE_ID/assets
-  // curl -L \
-  //   -X DELETE \
-  //   -H "Accept: application/vnd.github+json" \
-  //   -H "Authorization: Bearer <YOUR-TOKEN>" \
-  //   -H "X-GitHub-Api-Version: 2022-11-28" \
-  //   https://api.github.com/repos/OWNER/REPO/releases/assets/ASSET_ID
-
+  
   // Get release ID
   const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/releases/tags/v${VERSION}`, {
     headers: {
