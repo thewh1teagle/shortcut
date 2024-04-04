@@ -2,23 +2,20 @@
     "$schema": "shortcut.schema.json",
     "shortcuts": [
         {
-            "name": "test",
-            "command": "/usr/bin/open https://github.com/thewh1teagle/shortcut",
-            "keys": ["ctrl", "o"]
+            "name": "Windows open URL",
+            "command": "explorer.exe https://github.com/thewh1teagle/shortcut",
+            "keys": ["ctrl", "shift", "5"]
         },
         {
-            "name": "test1",
+            "name": "macOS open terminal",
             "command": "/usr/bin/open -a Terminal",
-            "keys": ["1", "2", "3"]
+            "keys": ["ctrl", "shift", "n"]
+        },
+        {
+            "name": "Linux open URL",
+            "command": "/usr/bin/xdg-open https://github.com/thewh1teagle/shortcut",
+            "keys": ["ctrl", "shift", "e"]
         }
     ],
     "version": "0.0.1"
 }
-
-
-
-
-
-
-
-
