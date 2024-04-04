@@ -59,9 +59,9 @@ fs.rmSync(NAME, { recursive: true });
 publish()
 
 async function checkResponse(response) {
-    if (![200,201].includes(response.status)) {
-        const reason = await response.json()
-        console.error(`status ${response.status}: `, reason)
+    if (![200,201,204].includes(response.status)) {
+        const reason = await response.text()
+        console.error(`status ${response.status} for ${response.url}: `, reason)
         process.exit(1)    
     }
 }
@@ -120,6 +120,20 @@ async function publish() {
   })
   const releaseData = await res.json()
   const releaseID = releaseData.id
+  const prevID = releaseData.assets.find(a => a.name === DIST)?.id
+
+  if (prevID) {
+    // Delete previous asset
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/releases/assets/${prevID}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+        Accept: "application/vnd.github+json",
+      },
+      method: "DELETE",
+    });
+    await checkResponse(res)
+  }
 
   // Upload asset
   try {
