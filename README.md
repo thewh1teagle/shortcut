@@ -34,3 +34,4 @@ Download one of the releases in [shortcut/releases](https://github.com/thewh1tea
 - [ ] Installer like [oranda](https://github.com/axodotdev/oranda)
 - [ ] Hot reload with [fsnotify](https://github.com/fsnotify/fsnotify)
 - [ ] Releases with [goReleaser](https://goreleaser.com/quick-start/)
+- [ ] Keys autocomplete
