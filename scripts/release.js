@@ -59,7 +59,7 @@ fs.rmSync(NAME, { recursive: true });
 publish()
 
 async function checkResponse(response) {
-    if (response.status != 200) {
+    if (![200,201].includes(response.status)) {
         const reason = await response.json()
         console.error(`status ${response.status}: `, reason)
         process.exit(1)    
