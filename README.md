@@ -24,6 +24,8 @@ Download one of the releases in [shortcut/releases](https://github.com/thewh1tea
 ```
 3. Run it once. it will autostart on boot from then.
 
+Now you can customize it, I recommend edit using [VSCode](https://code.visualstudio.com/download)
+
 # Start on boot
 For starting shortcut at boot, execute
 ```console
