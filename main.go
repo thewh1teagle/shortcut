@@ -102,6 +102,7 @@ func hotReload(path string) {
 }
 
 func main() {
+	cobra.MousetrapHelpText = "" // allow running by clicking .exe file from GUI
 	var rootCmd = &cobra.Command{
 		Use:   "shortcut",
 		Short: "Shortcuts manager",
