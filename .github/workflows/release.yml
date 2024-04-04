@@ -47,5 +47,7 @@ jobs:
         # GoHook
         sudo apt install xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev libxkbcommon-x11-dev libxkbcommon-dev
 
-    - name: Run release.js script
+    - name: Build and upload
       run: node scripts/release.js
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
