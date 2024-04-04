@@ -1,14 +1,16 @@
 {
-    "$schema": "schema.json",
+    "$schema": "shortcut.schema.json",
     "shortcuts": [
         {
             "name": "test",
-            "command": "/usr/bin/open http://github.com",
+            "command": "/usr/bin/open https://github.com/thewh1teagle/shortcut",
             "keys": ["ctrl", "o"]
         }
     ],
     "version": "0.0.1"
 }
+
+
 
 
 
