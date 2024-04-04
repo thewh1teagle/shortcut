@@ -1,3 +1,5 @@
 shortcut
 .venv
 dist/
+*.tar.gz
+*.zip
