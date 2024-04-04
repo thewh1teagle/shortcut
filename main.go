@@ -46,7 +46,7 @@ func reloadApp() error {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		cmd.Stdin = os.Stdin
-		err = cmd.Run()
+		err = cmd.Start()
 		if err == nil {
 			os.Exit(0)
 		} else {
