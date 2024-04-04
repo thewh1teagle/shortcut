@@ -24,6 +24,11 @@ Download one of the releases in [shortcut/releases](https://github.com/thewh1tea
 ```
 3. Run it once. it will autostart on boot from then.
 
+# Start on boot
+For starting shortcut at boot, execute
+```console
+./shortcut --install
+```
 
 # Supported Platforms
 
