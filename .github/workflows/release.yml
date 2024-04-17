@@ -2,8 +2,8 @@ name: Release Workflow
 
 on:
   push:
-    branches:
-      - main  # adjust the branch if needed
+    tags:
+      - "v*"
   workflow_dispatch:
     
 
