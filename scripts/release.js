@@ -31,8 +31,17 @@ const DIST = NAME + (OS == "windows" ? ".zip" : ".tar.gz");
 fs.rmSync(path.join(ROOT, NAME), { recursive: true, force: true });
 fs.mkdirSync(path.join(ROOT, NAME));
 
+if (OS == "windows") {
+  process.env.PATH += ';C:\\Program Files\\7-Zip'
+}
+
 // Build
-child_process.execSync("go build -tags release", { cwd: ROOT, shell: true });
+if (OS == "windows") {
+  child_process.execSync(`C:\\msys64\\msys2_shell.cmd -defterm -use-full-path -no-start -mingw64 -here -c "go build -tags release -ldflags -H=windowsgui"`, { cwd: ROOT, shell: true });
+} else {
+  child_process.execSync("go build -tags release", { cwd: ROOT, shell: true });
+}
+
 
 // Bundle
 fs.renameSync(path.join(ROOT, BIN), path.join(ROOT, NAME, BIN));
@@ -88,6 +97,7 @@ async function publish() {
         generate_release_notes: false,
       }),
     });
+    checkResponse(res)
     const data = await res.json()
     if (!data?.errors?.code === 'already_exists') {
         await checkResponse(res)
@@ -107,6 +117,7 @@ async function publish() {
         Accept: "application/vnd.github+json",
     }
   })
+  checkResponse(res)
   const releaseData = await res.json()
   const releaseID = releaseData.id
   const prevID = releaseData.assets.find(a => a.name === DIST)?.id
