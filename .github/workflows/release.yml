@@ -48,6 +48,6 @@ jobs:
         sudo apt install xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev libxkbcommon-x11-dev libxkbcommon-dev
 
     - name: Build and upload
-      run: node scripts/release.js
+      run: bun run scripts/release.js
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
