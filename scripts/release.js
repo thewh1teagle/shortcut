@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const child_process = require("child_process");
+import fs from 'fs'
+import path from 'path'
+import child_process from 'node:child_process'
 
 // Github options
 const OWNER = "thewh1teagle";
@@ -19,7 +19,7 @@ const OS = {
 const ARCH = process.arch;
 const BIN = OS === "windows" ? 'shortcut.exe' : 'shortcut'
 const VERSION = fs
-  .readFileSync(path.join(ROOT, "main.go"), "utf-8")
+  .readFileSync(MAIN, "utf-8")
   .match(/version\s*=\s*"([^"]+)"/)[1];
 const TOKEN = process.env.GITHUB_TOKEN;
 
