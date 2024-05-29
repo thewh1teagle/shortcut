@@ -102,6 +102,9 @@ func hotReload(path string) {
 }
 
 func main() {
+	if runtime.GOOS == "windows" {
+		attachConsoleIfPossible()
+	}
 	cobra.MousetrapHelpText = "" // allow running by clicking .exe file from GUI
 	var rootCmd = &cobra.Command{
 		Use:   "shortcut",
