@@ -30,7 +30,7 @@ type Shortcut struct {
 
 var installFlag bool
 var versionFlag bool
-var version = "0.0.2"
+var version = "1.0.0"
 
 func reloadApp() error {
 	// Get the executable path
