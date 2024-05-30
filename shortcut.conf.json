@@ -3,8 +3,9 @@
     "shortcuts": [
         {
             "name": "Windows open URL",
-            "command": "explorer.exe https://github.com/thewh1teagle/shortcut",
-            "keys": ["ctrl", "shift", "5"]
+            "command": "cmd.exe /c start https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            "keys": ["ctrl", "shift", "5"],
+            "hidewindow": true
         },
         {
             "name": "macOS open terminal",

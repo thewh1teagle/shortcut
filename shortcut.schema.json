@@ -202,6 +202,10 @@
                     "command": {
                         "type": "string",
                         "description": "The command to be performed when the shortcut is triggered."
+                    },
+                    "hidewindow": {
+                        "type": "boolean",
+                        "description": "Whether to hide the window when executing the command."
                     }
                 },
                 "required": [

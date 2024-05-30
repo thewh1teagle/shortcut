@@ -23,9 +23,10 @@ import (
 var jsonSchema string
 
 type Shortcut struct {
-	Name    string
-	Keys    []string
-	Command string
+	Name       string
+	Keys       []string
+	Command    string
+	HideWindow *bool // Pointer to bool for optional field
 }
 
 var installFlag bool
@@ -52,12 +53,14 @@ func reloadApp() error {
 		} else {
 			log.Fatal(err.Error())
 		}
+	} else {
+		// Replace the current process with a new one
+		err = syscall.Exec(exe, os.Args, os.Environ())
+		if err != nil {
+			return fmt.Errorf("executing new process: %w", err)
+		}
 	}
-	// Replace the current process with a new one
-	err = syscall.Exec(exe, os.Args, os.Environ())
-	if err != nil {
-		return fmt.Errorf("executing new process: %w", err)
-	}
+
 	// Exit the current process
 	os.Exit(0)
 	return nil
@@ -189,6 +192,9 @@ func registerShortcuts(shortcuts []Shortcut) {
 			fmt.Printf("Shortcut <%s> activated\n", shortcut.Name)
 			command := strings.Split(shortcut.Command, " ")
 			cmd := exec.Command(command[0], command[1:]...)
+			if runtime.GOOS == "windows" && shortcut.HideWindow != nil {
+				cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: *shortcut.HideWindow}
+			}
 
 			if err := cmd.Start(); err != nil {
 				fmt.Printf("Error executing command for shortcut <%s>: %v\n", shortcut.Name, err)
