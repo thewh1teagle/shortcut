@@ -206,9 +206,7 @@ func registerShortcuts(shortcuts []Shortcut) {
 
 			command := strings.Split(shortcut.Command, " ")
 			cmd := exec.Command(command[0], command[1:]...)
-			if runtime.GOOS == "windows" && shortcut.HideWindow != nil {
-				cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: *shortcut.HideWindow}
-			}
+			prepareCommand(cmd, shortcut)
 
 			if err := cmd.Start(); err != nil {
 				fmt.Printf("Error executing command for shortcut <%s>: %v\n", shortcut.Name, err)

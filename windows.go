@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"syscall"
 )
 
@@ -41,4 +42,8 @@ func attachConsoleIfPossible() (err error) {
 		return
 	}
 	return fmt.Errorf("attachconsole error : %v", lasterr)
+}
+
+func prepareCommand(cmd *exec.Cmd, shortcut Shortcut) {
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: *shortcut.HideWindow}
 }
