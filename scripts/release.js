@@ -44,7 +44,7 @@ if (OS == "windows") {
   const cmd = `C:\\msys64\\msys2_shell.cmd -defterm -use-full-path -no-start -mingw64 -here -c "go build -tags release -ldflags '${ldFlags}'"`
   child_process.execSync(cmd, { cwd: ROOT, shell: true });
 } else {
-  child_process.execSync(`go build -tags release -ldflags -X main.rev=${rev}`, { cwd: ROOT, shell: true });
+  child_process.execSync(`go build -tags release -ldflags "-X main.rev=${rev}"`, { cwd: ROOT, shell: true });
 }
 
 
