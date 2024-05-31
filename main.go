@@ -159,6 +159,10 @@ func handleFileEvent(event fsnotify.Event, shortcuts []Shortcut) {
 	if event.Has(fsnotify.Write) {
 		fmt.Println("🔥 Hot Reload triggered")
 		hook.End()
+
+		configPath, _ := getConfigPath()
+		jsonConfig, _ := readConfig(*configPath)
+		shortcuts, _ := parseShortcuts(jsonConfig)
 		registerShortcuts(shortcuts)
 		s := hook.Start()
 		go func() {
