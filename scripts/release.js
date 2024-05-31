@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import child_process from 'node:child_process'
+import { $ } from 'bun'
 
 // Github options
 const OWNER = "thewh1teagle";
@@ -36,10 +37,14 @@ if (OS == "windows") {
 }
 
 // Build
+const stdout = await $`git rev-parse --short HEAD`.text()
+const rev = stdout.replace(/\n/g, '')
 if (OS == "windows") {
-  child_process.execSync(`C:\\msys64\\msys2_shell.cmd -defterm -use-full-path -no-start -mingw64 -here -c "go build -tags release -ldflags -H=windowsgui"`, { cwd: ROOT, shell: true });
+  const ldFlags = `-H=windowsgui -X main.rev=${rev}`
+  const cmd = `C:\\msys64\\msys2_shell.cmd -defterm -use-full-path -no-start -mingw64 -here -c "go build -tags release -ldflags '${ldFlags}'"`
+  child_process.execSync(cmd, { cwd: ROOT, shell: true });
 } else {
-  child_process.execSync("go build -tags release", { cwd: ROOT, shell: true });
+  child_process.execSync(`go build -tags release -ldflags -X main.rev=${rev}`, { cwd: ROOT, shell: true });
 }
 
 

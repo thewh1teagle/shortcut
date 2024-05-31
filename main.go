@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"os/signal"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -32,12 +33,25 @@ type Shortcut struct {
 
 var installFlag bool
 var versionFlag bool
+
+// commit revision will be set during the build process
+var rev string
 var version = "1.0.0"
 
 func main() {
 	if runtime.GOOS == "windows" {
 		attachConsoleIfPossible()
 	}
+
+	sig := make(chan os.Signal, 1)
+	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
+
+	go func() {
+		<-sig
+		fmt.Println("Received SIGINT. Exiting...")
+		os.Exit(0)
+	}()
+
 	cobra.MousetrapHelpText = "" // allow running by clicking .exe file from GUI
 	var rootCmd = &cobra.Command{
 		Use:   "shortcut",
@@ -81,7 +95,7 @@ func run(cmd *cobra.Command, args []string) {
 		os.Exit(0)
 	}
 
-	fmt.Printf("🚀 Shortcut version %v\n", version)
+	fmt.Printf("🚀 Shortcut version %v (%v)\n", version, rev)
 	if versionFlag {
 		os.Exit(0)
 	}
