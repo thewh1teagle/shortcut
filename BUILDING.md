@@ -18,6 +18,6 @@ C:\msys64\msys2_shell.cmd -defterm -use-full-path -no-start -mingw64 -here -c "g
 Release
 ```console
 C:\msys64\msys2_shell.cmd -defterm -use-full-path -no-start -mingw64 -here
-COMMIT_HASH=$(git rev-parse --short HEAD)
-go build -tags release -ldflags "-H=windowsgui -X main.CommitHash=$COMMIT_HASH"
+rev=$(git rev-parse --short HEAD)
+go build -tags release -ldflags "-H=windowsgui -X main.rev=$rev"
 ```
