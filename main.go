@@ -184,7 +184,8 @@ func install() error {
 func registerShortcuts(shortcuts []Shortcut) {
 	for _, shortcut := range shortcuts {
 		hook.Register(hook.KeyDown, shortcut.Keys, func(e hook.Event) {
-			fmt.Printf("Shortcut '%s' activated\n", shortcut.Name)
+			fmt.Printf("Shortcut '%s' activated ✅\n", shortcut.Name)
+
 			command := strings.Split(shortcut.Command, " ")
 			cmd := exec.Command(command[0], command[1:]...)
 			if runtime.GOOS == "windows" && shortcut.HideWindow != nil {
